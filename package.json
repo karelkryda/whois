@@ -1,0 +1,62 @@
+{
+  "name": "whois",
+  "version": "1.0.0",
+  "description": "This library allows you to obtain information about each domain using WHOIS.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "ts-mocha tests/**/*.test.ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "build": "tsc",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "coverage": "nyc npm test",
+    "lint": "eslint . --ext .ts",
+    "lintFix": "eslint . --ext .ts --fix"
+  },
+  "author": "Karel Krýda (https://github.com/karelkryda)",
+  "license": "GPL-3.0",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karelkryda/whois.git"
+  },
+  "keywords": [
+    "whois",
+    "lookup",
+    "domain"
+  ],
+  "bugs": {
+    "url": "https://github.com/karelkryda/whois/issues"
+  },
+  "homepage": "https://github.com/karelkryda/whois#readme",
+  "dependencies": {
+    "@types/node": "^17.0.32",
+    "axios": "^0.27.2",
+    "axios-cache-adapter": "^2.7.3",
+    "sqlite": "^4.1.1",
+    "sqlite3": "^5.0.8",
+    "tld-extract": "github:mfpopa/node-tld"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/mocha": "^9.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "chai": "^4.3.6",
+    "eslint": "^8.15.0",
+    "mocha": "^10.0.0",
+    "nyc": "^15.1.0",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^4.6.4"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

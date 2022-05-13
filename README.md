@@ -14,12 +14,45 @@ $ npm install --save universal-whois
 ## WIP
 This package is still under development.
 <br>
-The package is not yet published on NPM and cannot be installed. If you want to try it, you can install it from this GitHub repository using
+The package is not yet published on NPM and cannot be installed. If you want to try it, you can clone it from this GitHub repository using
 ```bash
-$ npm install --save https://github.com/karelkryda/whois
+$ git clone -b dev https://github.com/karelkryda/whois.git
+```
+create file `test.ts` in root directory and run the test with
+```ts
+import { Whois } from "./src";
+
+(async () => {
+    const whois = new Whois({
+        timeout: 30000,
+        useCache: true,
+    });
+
+    try {
+        const result = await whois.fetchDomain("DOMAIN_HERE");
+        console.log(result);
+    } catch (e) {
+        console.log(e.message)
+        console.log("error");
+    }
+})();
 ```
 
 Thank you for understanding
+
+## Contributing
+If you want to speed up the development of the library, you can download the library and try out the individual TLDs.
+
+After verification, you can open a new issue and inform me about the functionality (or non-functionality) for the TLD, along with a screenshot that confirms this fact.
+During development, the library writes data from the WHOIS server and the resulting object with data that it was able to process to the console.
+
+If the data is OK, the correct functionality can be confirmed.<br>
+If the data from the WHOIS server offers more information than this library processes, it can be added.<br>
+If the data absolutely does not fit and failed to process properly, I will need to create a TLD-specific parser.
+
+
+In all the above cases, inform me of the condition you have reached.<br>
+Read more below 👇🏻.
 
 ## Supported domains (TLDs)
 All domains (TLDs) that have an available WHOIS server from which information can be obtained are supported by default.

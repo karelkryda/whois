@@ -2,7 +2,7 @@ name: CI - Lint + Tests + Build
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ dev_ ]
 
 jobs:
   build:

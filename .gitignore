@@ -106,3 +106,4 @@ dist
 # Test file
 test.ts
 tests/test.test.ts
+/tmp/database-dev.db

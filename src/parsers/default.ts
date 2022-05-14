@@ -2,7 +2,12 @@ import { WhoisResult } from "../interfaces";
 
 export function defaultParser(data: string): WhoisResult {
     const nameServers = [];
-    const whoisResult: WhoisResult = {};
+    const whoisResult: WhoisResult = {
+        domain: {},
+        registrant: {},
+        registrar: {},
+        registry: {},
+    };
     const dataPerLine = data.split("\n");
     dataPerLine.forEach((dataLine: string) => {
         const dataArray = dataLine.trim().split(": ");
@@ -11,33 +16,33 @@ export function defaultParser(data: string): WhoisResult {
 
         switch (dataArray[0].toLowerCase()) {
             case "domain name":
-                whoisResult.domainName = dataArray[1].toLowerCase();
+                whoisResult.domain.name = dataArray[1].toLowerCase();
                 break;
             case "registry domain id":
-                whoisResult.registryDomainID = dataArray[1];
+                whoisResult.registry.id = dataArray[1];
                 break;
             case "registrar whois server":
-                whoisResult.registrarWhoisServer = dataArray[1];
+                whoisResult.registrar.whoisServer = dataArray[1];
                 break;
             case "registrar url":
-                whoisResult.registrarURL = new URL(dataArray[1]);
+                whoisResult.registrar.url = (!dataArray[1].match(/^(http|https)/i)) ? new URL("https://" + dataArray[1]) : new URL(dataArray[1]);
                 break;
             case "updated date":
-                whoisResult.updatedDate = new Date(dataArray[1]);
+                whoisResult.domain.updateDate = new Date(dataArray[1]);
                 break;
             case "creation date":
-                whoisResult.creationDate = new Date(dataArray[1]);
+                whoisResult.domain.creationDate = new Date(dataArray[1]);
                 break;
             case "registry expiry date":
-                whoisResult.registryExpiryDate = new Date(dataArray[1]);
+                whoisResult.domain.expirationDate = new Date(dataArray[1]);
                 break;
             case "registrar":
-                whoisResult.registrar = dataArray[1];
+                whoisResult.registrar.name = dataArray[1];
                 break;
             case "registrar iana id":
-                whoisResult.registrarIanaID = Number(dataArray[1]) || dataArray[1];
+                whoisResult.registrar.ianaID = Number(dataArray[1]) || dataArray[1];
                 break;
-            case "registry registrant id":
+            /*case "registry registrant id":
                 whoisResult.registryRegistrantID = Number(dataArray[1]) || dataArray[1];
                 break;
             case "registrant name":
@@ -153,22 +158,26 @@ export function defaultParser(data: string): WhoisResult {
                 break;
             case "tech email":
                 whoisResult.techEmail = dataArray[1];
-                break;
+                break;*/
             case "registrar abuse contact email":
-                whoisResult.registrarAbuseContactEmail = dataArray[1];
+                whoisResult.registrar.abuseContactEmail = dataArray[1];
                 break;
             case "registrar abuse contact phone":
-                whoisResult.registrarAbuseContactPhone = dataArray[1];
+                whoisResult.registrar.abuseContactPhone = dataArray[1];
                 break;
             case "name server":
                 nameServers.push(dataArray[1]);
                 break;
             case "dnssec":
-                whoisResult.dnssec = dataArray[1];
-                break
+                whoisResult.domain.dnssec = dataArray[1];
+                break;
+            default:
+                //TODO: remove
+                console.log("No parser option found for key '" + dataArray[0].toLowerCase() + "'");
+                break;
         }
     });
-    whoisResult.nameServers = nameServers;
+    whoisResult.domain.nameServers = nameServers;
 
     return whoisResult;
 }

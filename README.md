@@ -387,7 +387,7 @@ Here is a list of domains that are already checked and working properly.
 | DAY                      | ❓      |             |
 | DCLK                     | ❓      |             |
 | DDS                      | ❓      |             |
-| DE                       | ❓      |             |
+| DE                       | ❌      |             |
 | DEAL                     | ❓      |             |
 | DEALER                   | ❓      |             |
 | DEALS                    | ❓      |             |
@@ -457,7 +457,7 @@ Here is a list of domains that are already checked and working properly.
 | ESTATE                   | ❓      |             |
 | ET                       | ❓      |             |
 | ETISALAT                 | ❓      |             |
-| EU                       | ❓      |             |
+| EU                       | ❌      |             |
 | EUROVISION               | ❓      |             |
 | EUS                      | ❓      |             |
 | EVENTS                   | ❓      |             |
@@ -902,7 +902,7 @@ Here is a list of domains that are already checked and working properly.
 | NC                       | ❓      |             |
 | NE                       | ❓      |             |
 | NEC                      | ❓      |             |
-| NET                      | ❓      |             |
+| NET                      | ✅      |             |
 | NETBANK                  | ❓      |             |
 | NETFLIX                  | ❓      |             |
 | NETWORK                  | ❓      |             |
@@ -958,7 +958,7 @@ Here is a list of domains that are already checked and working properly.
 | OPEN                     | ❓      |             |
 | ORACLE                   | ❓      |             |
 | ORANGE                   | ❓      |             |
-| ORG                      | ❓      |             |
+| ORG                      | ✅      |             |
 | ORGANIC                  | ❓      |             |
 | ORIGINS                  | ❓      |             |
 | OSAKA                    | ❓      |             |
@@ -1000,7 +1000,7 @@ Here is a list of domains that are already checked and working properly.
 | PIONEER                  | ❓      |             |
 | PIZZA                    | ❓      |             |
 | PK                       | ❓      |             |
-| PL                       | ❓      |             |
+| PL                       | ✅      |             |
 | PLACE                    | ❓      |             |
 | PLAY                     | ❓      |             |
 | PLAYSTATION              | ❓      |             |

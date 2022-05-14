@@ -2,7 +2,12 @@ import { WhoisResult } from "../interfaces";
 
 export function ruParser(data: string): WhoisResult {
     const nameServers = [];
-    const whoisResult: WhoisResult = {};
+    const whoisResult: WhoisResult = {
+        domain: {},
+        registrant: {},
+        registrar: {},
+        registry: {},
+    };
     const dataPerLine = data.split("\n");
     dataPerLine.forEach((dataLine: string) => {
         const dataArray = dataLine.trim().split(": ");
@@ -11,26 +16,29 @@ export function ruParser(data: string): WhoisResult {
 
         switch (dataArray[0].toLowerCase()) {
             case "domain":
-                whoisResult.domainName = dataArray[1];
+                whoisResult.domain.name = dataArray[1];
+                break;
+            case "state":
+                whoisResult.domain.state = dataArray[1];
                 break;
             case "org":
-                whoisResult.registrantOrganization = dataArray[1];
+                whoisResult.registrant.organisation = dataArray[1];
                 break;
             case "registrar":
-                whoisResult.registrar = dataArray[1];
+                whoisResult.registrar.name = dataArray[1];
                 break;
             case "created":
-                whoisResult.creationDate = new Date(dataArray[1]);
+                whoisResult.domain.creationDate = new Date(dataArray[1]);
                 break;
             case "paid-till":
-                whoisResult.registryExpiryDate = new Date(dataArray[1]);
+                whoisResult.domain.expirationDate = new Date(dataArray[1]);
                 break;
             case "nserver":
                 nameServers.push(dataArray[1]);
                 break;
         }
     });
-    whoisResult.nameServers = nameServers;
+    whoisResult.domain.nameServers = nameServers;
 
     return whoisResult;
 }

@@ -59,9 +59,9 @@ export class Whois {
         let databaseConnection;
         if (this.options.useCache) {
             databaseConnection = await connectToDatabase();
-            const cachedQuery = await databaseConnection.get("SELECT query FROM cached_queries WHERE domain = ? AND datetime(timestamp) >= datetime('now', '-1 Hour')", domain);
+            const cachedQuery = await databaseConnection.get("SELECT server, query FROM cached_queries WHERE domain = ? AND datetime(timestamp) >= datetime('now', '-1 Hour')", domain);
             if (cachedQuery)
-                return parseOutputToObject(tld, cachedQuery.query, true);
+                return parseOutputToObject(tld, cachedQuery.query, cachedQuery.server, true);
         }
 
         const whoisServer = await getWhoisServerByTLD(tld);
@@ -87,9 +87,9 @@ export class Whois {
 
                 whoisResult = whoisResult.slice(0, whoisResult.toLowerCase().indexOf(endOfWhoisReport.toLowerCase()));
                 if (this.options.useCache)
-                    await databaseConnection.run("INSERT INTO cached_queries (domain, query) VALUES (?, ?)", domain, whoisResult);
+                    await databaseConnection.run("INSERT INTO cached_queries (server, domain, query) VALUES (?, ?, ?)", whoisServer, domain, whoisResult);
 
-                resolve(parseOutputToObject(tld, whoisResult));
+                resolve(parseOutputToObject(tld, whoisResult, whoisServer));
             });
             socketConnection.on("timeout", () => {
                 reject(new Error("The server did not return data at the requested time"));
